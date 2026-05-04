@@ -4,6 +4,8 @@ Get up and running with AI Platform in minutes using Docker.
 
 ## Git Repository Setup
 
+> ✅ **已部署到 GitHub**: https://github.com/abcdwer/ai-platform
+
 The repository is already initialized locally with all code committed.
 
 ### Current Status
@@ -16,11 +18,18 @@ git status
 
 # View commit history
 git log --oneline
+
+# Pull latest changes from GitHub
+git pull origin master
 ```
 
 ### Working with Git
 
 ```bash
+# Clone from GitHub
+git clone https://github.com/abcdwer/ai-platform.git
+cd ai-platform
+
 # Start working on a new feature
 git checkout -b feature/your-feature-name
 
@@ -28,9 +37,8 @@ git checkout -b feature/your-feature-name
 git add .
 git commit -m "Your commit message"
 
-# Push to remote (after setting up GitHub repository)
-git remote add origin https://github.com/your-username/ai-platform.git
-git push -u origin main
+# Push to remote
+git push -u origin master
 ```
 
 ---
@@ -50,7 +58,7 @@ git push -u origin main
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/ai-platform.git
+git clone https://github.com/abcdwer/ai-platform.git
 cd ai-platform
 
 # Copy environment template
