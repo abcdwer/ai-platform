@@ -1,0 +1,49 @@
+# Local Development Override Configuration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d
+
+# This file enables hot-reloading and development-friendly settings
+
+services:
+  backend:
+    volumes:
+      - ./backend:/app
+      # Keep alembic migrations accessible
+      - ./backend/alembic:/app/alembic
+    environment:
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+    command: >
+      sh -c "
+        alembic upgrade head &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app
+      "
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+
+  # Ollama for local development
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-platform-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - ai-platform-network
+
+volumes:
+  ollama_data:
+    driver: local
